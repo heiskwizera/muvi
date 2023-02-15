@@ -9,58 +9,49 @@ import {
 } from "react-native";
 
 import { uiProps } from "../config";
-import  AppText from "./AppText";
+import AppText from "./AppText";
 import { TouchableOpacity } from "react-native";
 
 const { width, height } = Dimensions.get("window");
 
 const LgMovies = ({ title, year, rating, poster, ...props }) => {
   return (
-   <TouchableOpacity {...props}>
-     <ImageBackground style={lgStyle.card} source={{ uri: poster }} >
-      <View style={lgStyle.overlay}>
-        <Text style={lgStyle.title}>{title}</Text>
-        <View style={lgStyle.description}>
-          <AppText style={lgStyle.hd}>HD</AppText>
-          <AppText style={lgStyle.year}>{year}</AppText>
-          <AppText style={lgStyle.rating}>{rating}</AppText>
+    <TouchableOpacity {...props}>
+      <ImageBackground style={lgStyle.card} source={{ uri: poster }} >
+        <View style={lgStyle.overlay}>
+          <Text style={lgStyle.title}>{title}</Text>
+          <View style={lgStyle.description}>
+            <AppText style={lgStyle.hd}>HD</AppText>
+            <AppText style={lgStyle.year}>{year}</AppText>
+            <AppText style={lgStyle.rating}>{rating}</AppText>
+          </View>
         </View>
-      </View>
-    </ImageBackground>
-   </TouchableOpacity>
+      </ImageBackground>
+    </TouchableOpacity>
   );
 };
 
 const SmMovies = ({ title, poster, date, age, ...props }) => {
   return (
-  <TouchableOpacity {...props}>
+    <TouchableOpacity {...props}>
       <View style={smStyles.movieContainer}>
-      <Image source={{ uri: poster }} style={smStyles.poster} />
-      <View style={smStyles.titleContainer}>
-        <Text style={smStyles.title}>{title}</Text>
-        <View style={smStyles.hdContainer}>
-          <Text style={smStyles.hdLabel}>HD</Text>
+        <Image source={{ uri: poster }} style={smStyles.poster} />
+        <View style={smStyles.titleContainer}>
+          <Text style={smStyles.title}>{title}</Text>
+          <View style={smStyles.hdContainer}>
+            <Text style={smStyles.hdLabel}>HD</Text>
+          </View>
+        </View>
+        <View style={smStyles.dateContainer}>
+          <Text style={smStyles.date}>{date}</Text>
+          <Text style={smStyles.age}>{age}+</Text>
         </View>
       </View>
-      <View style={smStyles.dateContainer}>
-        <Text style={smStyles.date}>{date}</Text>
-        <Text style={smStyles.age}>{age}+</Text>
-      </View>
-    </View>
-  </TouchableOpacity>
+    </TouchableOpacity>
   );
 };
 
-const ResMovies = ({
-  key,
-  poster,
-  title,
-  styles,
-  date,
-  vote,
-  overview,
-  ...props
-}) => {
+const ResMovies = ({ poster, title, styles, date, vote, overview, ...props }) => {
   return (
     <View style={[resultStyle.searchResultContainer, styles]}>
       <TouchableOpacity

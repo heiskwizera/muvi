@@ -9,6 +9,7 @@ import AccountScreen from "../screens/Account";
 
 import { Text,View } from 'react-native';
 import TopStack from "./TopStack";
+import { Player } from "../screens";
 
 const Tab = createBottomTabNavigator();
 
@@ -52,6 +53,10 @@ function RootNavigation() {
         <Tab.Screen name={paths.SEARCH} component={SearchStackNavigator} />
         <Tab.Screen name={paths.LISTING} component={ListingStack} />
         <Tab.Screen name={paths.ACCOUNT} component={AccountScreen} />
+        <Tab.Screen name={paths.VIDEO_PLAYER} component={Player} 
+        options={{ tabBarVisible: false, tabBarButton: () => null }}
+        />
+        
       </Tab.Navigator>
     );
   }

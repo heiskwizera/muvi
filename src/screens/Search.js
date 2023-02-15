@@ -3,7 +3,7 @@ import { StyleSheet, ScrollView, View, Image } from "react-native";
 import { paths, uiProps } from "../config";
 
 import { Screen, AppHeader, SearchBar, ResMovies } from "../components";
-import useDebounce from "../utils/Helpers/Debounce";
+import useDebounce from "../utils/Hooks/useDebounce";
 import theMovieDb from "../api/Movies";
 
 const loadIndicator = paths.LOADER_GIF;
@@ -47,9 +47,9 @@ function Search({ navigation }) {
         />
       
       <ScrollView style={{backgroundColor:uiProps.colors.primary}}>
-        {movies.map((movie) => (
+        {movies.map((movie,index) => (
           <ResMovies
-            key={movie.id}
+            key={index.toString()+movie.id}
             poster={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
             title={movie.title}
             date={movie.release_date}

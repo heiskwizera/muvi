@@ -1,11 +1,7 @@
-import React, {useState,useEffect} from "react";
-import { StyleSheet, View, TouchableOpacity } from "react-native";
-import { ScrollView } from "react-native";
+import React, {useState} from "react";
+import { StyleSheet, View, TouchableOpacity,ScrollView } from "react-native";
 import { Formik } from "formik";
-
 import { uiProps, paths } from "../config";
-import { validateLogin } from "../utils/Validator";
-import authApi from "../api/Auth";
 
 import {
   AppLogo,
@@ -15,21 +11,21 @@ import {
   Screen,
 } from "../components";
 
-import { useContext } from "react";
 
-import AuthContext from "../auth/context";
+import { validateLogin } from "../utils/Validator";
+import authApi from "../api/Auth";
+import useAuth from "../utils/Hooks/useAuth";
+
 
 function Login({ navigation}) {
-  const authContext = useContext(AuthContext); 
+  const auth = useAuth(); 
   const [loginFailed, setLoginFailed] = useState(false);
 
   const handleLogin = async ({ email, password }) => {
     const result = await authApi.login(email, password);
     if (!result.ok) return setLoginFailed(true);
     setLoginFailed(false);
-    const user = result.data.data;
-    console.log(user);
-    authContext.setUser(user);
+    auth.logIn(result);
   };
 
   return (
@@ -42,7 +38,6 @@ function Login({ navigation}) {
             Please Login to enjoy more benefits and we won't let you down.
           </AppText>
 
-          {/* Error */}
           {loginFailed && (
             <AppText style={{ color: uiProps.colors.danger }}>
               Invalid email or password

@@ -3,16 +3,16 @@ import { Ionicons } from "@expo/vector-icons";
 import { Hoshi } from "react-native-textinput-effects";
 import { StyleSheet, View } from "react-native";
 
-import {uiProps} from "../config";
+import { uiProps } from "../config";
 import AppText from "./AppText";
 
 
 
-function AppInputField({ icon, label, errorMessage,isTouch=false,...otherProps }) {
+function AppInputField({ icon, label, isTouch = false, errorMessage, ...otherProps }) {
   return (
     <View>
       <Hoshi
-       
+
         label={label}
         {...otherProps}
 
@@ -20,7 +20,7 @@ function AppInputField({ icon, label, errorMessage,isTouch=false,...otherProps }
         placeholderTextColor={uiProps.colors.white}
         borderHeight={1}
         inputPadding={5}
-        labelStyle={{ color: uiProps.colors.white, fontSize:uiProps.fontSizes.small, marginTop:10, marginLeft:-5 }}
+        labelStyle={{ color: uiProps.colors.white, fontSize: uiProps.fontSizes.small, marginTop: 10, marginLeft: -5 }}
         inputStyle={{
           color: uiProps.colors.white,
           marginBottom: -10,

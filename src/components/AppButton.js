@@ -1,10 +1,10 @@
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity } from "react-native";
-import { FontAwesome,Feather } from "@expo/vector-icons";
+import { FontAwesome, Feather } from "@expo/vector-icons";
 
 import { uiProps } from "../config";
 
-function AppButton({  title, style,textStyle, logo,bgIcon,iconFamily,...props }) {
+function AppButton({ title, logo, bgIcon, iconFamily, style, textStyle, ...props }) {
   return (
     <TouchableOpacity style={[styles.button, style]} {...props}>
       {logo && !iconFamily && (

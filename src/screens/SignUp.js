@@ -15,17 +15,27 @@ import {
 } from "../components";
 import { useContext } from "react";
 import AuthContext from "../auth/context";
+import authStorage from "../auth/storage";
 
 function SignUp({ navigation }) {
   const authContext = useContext(AuthContext);  
   const [signUpFailed, SetError] = useState(false);
+  const [errorMessage, SetErrorMessage] = useState([]);
 
   const handleSubmit = async({username,email,password}) =>{
      const result = await authApi.signUp(username,email,password);
-     if(!result.ok) return SetError(true);
-     SetError(false);
-     const user = result.data.data;
-     authContext.setUser(user);
+      if(!result.ok){
+        SetError(true);
+        return;
+      }
+      SetError(false);
+      const token = result.data.token || result.data.data.token;
+      const user = result.data.data || result.data;
+      const userId = result.data.data.id || result.data.id;
+      authContext.setUser(user);
+      authContext.setUserId(userId);
+      authStorage.storeToken(token);
+      authStorage.storeUserInfo(JSON.stringify(user));
   }
 
   return (
@@ -42,7 +52,7 @@ function SignUp({ navigation }) {
           {/* Error */}
           {signUpFailed && (
             <AppText style={{ color: uiProps.colors.danger }}>
-              Invalid email or password
+              {errorMessage}
             </AppText>
           )}
 

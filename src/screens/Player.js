@@ -17,14 +17,12 @@ function Player({route}) {
   const loadMovie = async () => {
     const response = await theMovieDb.getVideos(videoId);
     setMovie(response.data.results);
-    console.log(response.data.results);
   };
 
   return (
     <Screen>
        <AppHeader />
       <ScrollView style={styles.container} showsVerticalScrollIndicator={false} >
-        {/* Show loader activity as long as movie is not yet set */}
 
         {movie.length === 0 ? (
           <ActivityIndicator size="large" color={uiProps.colors.primary} />

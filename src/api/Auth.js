@@ -3,8 +3,10 @@ import { clientApi } from "./Client";
 const loginEndpoint = "/login";
 const signUpEndpoint = "/signup";
 
+const loginEndpoint2 = "users/login";
 
-const login = (email,password)=>clientApi.post(loginEndpoint,{
+
+const login = (email,password)=>clientApi.post(loginEndpoint2,{
     email,
     password
 });

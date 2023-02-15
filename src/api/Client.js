@@ -1,6 +1,9 @@
 import { API_KEY } from "@env";
 import { create } from "apisauce";
 
+const api1 = "https://dead-blue-nightingale-kit.cyclic.app/api/user";
+const api2 = "https://blogapi-0jru.onrender.com/api";
+
 const movieDbClient = create({
   baseURL: "https://api.themoviedb.org/3",
   params: {
@@ -13,10 +16,12 @@ const movieDbClient = create({
 
 
 const clientApi = create({
-  baseURL:"https://dead-blue-nightingale-kit.cyclic.app/api/user",
+  baseURL:api2,
   headers:{
     Accept:"application/json",
-  }
+    "Content-Type":"application/json",
+  },
+  timeout:20000,
 })
 
 
