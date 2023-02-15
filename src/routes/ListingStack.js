@@ -12,7 +12,7 @@ const Tab = createMaterialTopTabNavigator();
 
 function ListingStack() {
   return (
-    <Screen >
+    <>
       <AppHeader />
       <Tab.Navigator
         style={{backgroundColor:'#0a1324'}}
@@ -52,7 +52,7 @@ function ListingStack() {
         <Tab.Screen name={paths.LISTING_TAB_1} component={NoRecord} />
        
       </Tab.Navigator>
-    </Screen>
+    </>
   );
 }
 

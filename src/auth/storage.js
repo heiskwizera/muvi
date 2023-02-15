@@ -26,7 +26,6 @@ const removeToken = async () => {
   }
 };
 
-// store userInfo 
 
 const storeUserInfo = async (userInfo) => {
   try {

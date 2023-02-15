@@ -1,5 +1,5 @@
-import React, {useState} from "react";
-import { StyleSheet, View, TouchableOpacity,ScrollView } from "react-native";
+import React, {useState, useEffect} from "react";
+import { StyleSheet, View, TouchableOpacity,ScrollView, ActivityIndicator } from "react-native";
 import { Formik } from "formik";
 import { uiProps, paths } from "../config";
 
@@ -9,24 +9,40 @@ import {
   AppInputField,
   AppButton,
   Screen,
+  AppError
 } from "../components";
 
 
 import { validateLogin } from "../utils/Validator";
 import authApi from "../api/Auth";
-import useAuth from "../utils/Hooks/useAuth";
+import useAuth from "../auth/useAuth";
+import useAsyncTask from "../utils/Hooks/useAsyncTask";
 
 
 function Login({ navigation}) {
   const auth = useAuth(); 
   const [loginFailed, setLoginFailed] = useState(false);
+  const [isLoadingProcess, setIsLoadingProcess] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(null);
 
   const handleLogin = async ({ email, password }) => {
+    setIsLoadingProcess(true);
     const result = await authApi.login(email, password);
-    if (!result.ok) return setLoginFailed(true);
+    setIsLoadingProcess(false);
+    if (!result.ok) {
+      setLoginFailed(true);
+      setErrorMessage(result.data.message);
+      console.log('Error message : ', result.data.message)
+      return;
+    }
     setLoginFailed(false);
     auth.logIn(result);
   };
+  useEffect(() => {
+    console.log("isLoadingProcess", isLoadingProcess);
+  }, [isLoadingProcess]);
+
+
 
   return (
     <Screen>
@@ -37,13 +53,7 @@ function Login({ navigation}) {
           <AppText style={styles.title}>
             Please Login to enjoy more benefits and we won't let you down.
           </AppText>
-
-          {loginFailed && (
-            <AppText style={{ color: uiProps.colors.danger }}>
-              Invalid email or password
-            </AppText>
-          )}
-
+          <AppError isError={loginFailed} error={errorMessage} />
           <Formik
             initialValues={{ email: "", password: "" }}
             validationSchema={validateLogin}
@@ -55,6 +65,7 @@ function Login({ navigation}) {
               errors,
               setFieldTouched,
               touched,
+              isSubmitting,
             }) => (
               <>
                 <AppInputField
@@ -81,7 +92,19 @@ function Login({ navigation}) {
                 <TouchableOpacity>
                   <AppText style={styles.subtext}>Forget Password ?</AppText>
                 </TouchableOpacity>
-                <AppButton title="Get Started" onPress={handleSubmit} />
+                <AppButton title="Get Started" onPress={handleSubmit}
+                // disabled={isSubmitting}
+                
+                
+                />
+
+                {isLoadingProcess && (
+                  <ActivityIndicator
+                    size="small"
+                    color={uiProps.colors.accent}
+                  />
+                )}
+
               </>
             )}
           </Formik>

@@ -16,9 +16,10 @@ import {
 import { useContext } from "react";
 import AuthContext from "../auth/context";
 import authStorage from "../auth/storage";
+import useAuth from "../auth/useAuth";
 
 function SignUp({ navigation }) {
-  const authContext = useContext(AuthContext);  
+  const auth = useAuth();
   const [signUpFailed, SetError] = useState(false);
   const [errorMessage, SetErrorMessage] = useState([]);
 
@@ -29,13 +30,7 @@ function SignUp({ navigation }) {
         return;
       }
       SetError(false);
-      const token = result.data.token || result.data.data.token;
-      const user = result.data.data || result.data;
-      const userId = result.data.data.id || result.data.id;
-      authContext.setUser(user);
-      authContext.setUserId(userId);
-      authStorage.storeToken(token);
-      authStorage.storeUserInfo(JSON.stringify(user));
+      auth.signUp(result);
   }
 
   return (

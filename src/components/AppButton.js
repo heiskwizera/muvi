@@ -6,7 +6,7 @@ import { uiProps } from "../config";
 
 function AppButton({ title, logo, bgIcon, iconFamily, style, textStyle, ...props }) {
   return (
-    <TouchableOpacity style={[styles.button, style]} {...props}>
+    <TouchableOpacity style={[styles.button, style]} {...props} >
       {logo && !iconFamily && (
         <FontAwesome name={logo} size={24} color={bgIcon} />
       )}

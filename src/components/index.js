@@ -13,6 +13,7 @@ import AppVideo from "./AppVideo";
 import ListItem from "./ListItem";
 import ListItemSeparator from "./ListItemSeparator";
 import IconComponent from "./Icon";
+import AppError from "./AppError";
 
 export {
   AppButton,
@@ -31,5 +32,6 @@ export {
   AppVideo,
   ListItem,
   ListItemSeparator,
-  IconComponent
+  IconComponent,
+  AppError,
 };

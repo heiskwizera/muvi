@@ -34,7 +34,7 @@ function Search({ navigation }) {
   }, [debouncedSearch]);
 
   return (
-    <Screen>
+    <>
       <AppHeader />
       <View style={styles.container}>
         <SearchBar
@@ -77,7 +77,7 @@ function Search({ navigation }) {
         )}
       </ScrollView>
       </View>
-    </Screen>
+    </>
   );
 }
 

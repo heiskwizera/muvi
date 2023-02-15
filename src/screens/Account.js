@@ -3,8 +3,7 @@ import { StyleSheet, View, FlatList } from "react-native";
 import { Screen,ListItem,ListItemSeparator,IconComponent as Icon, AppHeader } from "../components";
 import { paths, uiProps } from "../config";
 
-import useAuth from "../utils/Hooks/useAuth";
-
+import useAuth from '../auth/useAuth';
 
 
 const menuItems = [

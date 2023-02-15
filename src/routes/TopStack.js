@@ -39,7 +39,7 @@ function Originals() {
 
 function TopStack() {
   return (
-    <Screen>
+ <>
       <AppHeader />
       <Tab.Navigator
       style={{backgroundColor:'#0a1324'}}
@@ -68,7 +68,7 @@ function TopStack() {
         <Tab.Screen name={paths.HOME_TAB_3} component={Films} />
         <Tab.Screen name={paths.HOME_TAB_4} component={Originals} />
       </Tab.Navigator>
-    </Screen>
+    </>
   );
 }
 

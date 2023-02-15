@@ -1,11 +1,13 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Feather,AntDesign  } from '@expo/vector-icons'; 
-import { paths } from "../config";
+import { paths, uiProps } from "../config";
 
 import SearchStackNavigator from "./SearchStack";
 import ListingStack from "./ListingStack";
 import AccountScreen from "../screens/Account";
+import Profile from "../screens/Profile";
+import { Screen } from "../components";
 
 import { Text,View } from 'react-native';
 import TopStack from "./TopStack";
@@ -16,6 +18,7 @@ const Tab = createBottomTabNavigator();
 
 function RootNavigation() {
     return (
+      <Screen>
       <Tab.Navigator
         screenOptions={({ route }) => ({
           tabBarIcon: ({ color, size }) => {
@@ -43,6 +46,12 @@ function RootNavigation() {
           },
           tabBarActiveTintColor: "#f9bf02",
           tabBarInactiveTintColor: "gray",
+          headerStyle: {
+            backgroundColor: "#0a1324",
+            elevation: 0,
+            shadowOpacity: 0,
+            borderBottomWidth: 0,
+          },
         })}
       
   
@@ -52,12 +61,24 @@ function RootNavigation() {
         <Tab.Screen name={paths.HOME} component={TopStack} />
         <Tab.Screen name={paths.SEARCH} component={SearchStackNavigator} />
         <Tab.Screen name={paths.LISTING} component={ListingStack} />
-        <Tab.Screen name={paths.ACCOUNT} component={AccountScreen} />
+        <Tab.Screen name={paths.ACCOUNT} component={AccountScreen}
+        options={{
+          //
+          headerShown: true,
+          headerTitle: () => (
+            <View style={{flexDirection:'row',justifyContent:'center',alignItems:'center'}}>
+              <Text style={{color:uiProps.colors.white,fontSize:18,fontWeight:uiProps.fontWeights.bold}}>More</Text>
+            </View>
+          ),
+        }}
+        
+        />
         <Tab.Screen name={paths.VIDEO_PLAYER} component={Player} 
         options={{ tabBarVisible: false, tabBarButton: () => null }}
         />
         
       </Tab.Navigator>
+      </Screen>
     );
   }
 

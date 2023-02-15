@@ -19,8 +19,9 @@ function Player({route}) {
     setMovie(response.data.results);
   };
 
+
   return (
-    <Screen>
+    <>
        <AppHeader />
       <ScrollView style={styles.container} showsVerticalScrollIndicator={false} >
 
@@ -49,7 +50,7 @@ function Player({route}) {
         
 
       </ScrollView>
-    </Screen>
+    </>
   );
 }
 
