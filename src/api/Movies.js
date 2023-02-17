@@ -1,18 +1,26 @@
 import movieDbClient from "./Client";
 
-const popularMovies = "/movie/popular";
-const videos = "/movie/{movie_id}/videos";
-const upcomingMovies = "/movie/upcoming";
-const topRatedMovies = "/movie/top_rated";
-const searchMovies = "/search/movie";
 
-const getPopularMovies = () => movieDbClient.get(popularMovies);
+const POPULAR_MOVIES = "/movie/popular";
+const VIDEOS = "/movie/{movie_id}/videos";
+const UPCOMING_MOVIES = "/movie/upcoming";
+const TOP_RATED_MOVIES = "/movie/top_rated";
+const SEARCH_MOVIES = "/search/movie";
+
+const getPopularMovies = () =>
+  movieDbClient.get(POPULAR_MOVIES);
+
 const getVideos = (movieId) =>
-  movieDbClient.get(videos.replace("{movie_id}", movieId));
-const getUpcomingMovies = () => movieDbClient.get(upcomingMovies);
-const getTopRatedMovies = () => movieDbClient.get(topRatedMovies);
+  movieDbClient.get(VIDEOS.replace("{movie_id}", movieId));
+
+
+  
+const getUpcomingMovies = () => movieDbClient.get(UPCOMING_MOVIES);
+const getTopRatedMovies = () => movieDbClient.get(TOP_RATED_MOVIES);
+
+
 const searchMovie = (query) =>
-  movieDbClient.get(searchMovies, {
+  movieDbClient.get(SEARCH_MOVIES, {
     query,
   })
 

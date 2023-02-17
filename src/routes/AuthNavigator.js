@@ -3,7 +3,6 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { paths } from "../config";
 
 import { Starter, Stage, SignUp, Login, Home } from "../screens";
-import RootNavigation from "./RootNavigation";
 
 const Stack = createStackNavigator();
 

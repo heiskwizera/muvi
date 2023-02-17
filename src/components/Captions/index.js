@@ -2,12 +2,12 @@ import React from "react";
 import { useState, useRef } from "react";
 import {
   Dimensions,
-  Animated,
   Easing,
   View,
   Text,
   StyleSheet,
-  FlatList
+  FlatList,
+  Animated
 } from "react-native";
 
 import {Captions, uiProps} from "../../config";
@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
   description: {
     fontSize: uiProps.fontSizes.medium,
     color: uiProps.colors.white,
-    marginLeft: 10,
+    marginLeft: 10
   },
 });
 

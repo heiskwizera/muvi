@@ -3,7 +3,6 @@ import { createMaterialTopTabNavigator } from "@react-navigation/material-top-ta
 import { View, Text } from "react-native";
 
 import { Home } from "../screens";
-import { Screen } from "../components";
 import { AppHeader } from "../components";
 import { paths } from "../config";
 
@@ -55,8 +54,10 @@ function TopStack() {
           tabBarIndicatorStyle: {
             backgroundColor: "#f9bf02",
             height: 2,
-            width: 22,
-            marginLeft: 28
+            width: "25%",
+            
+
+
           },
           tabBarStyle: {
             backgroundColor: "#0a1324"

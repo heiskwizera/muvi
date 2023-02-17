@@ -5,8 +5,8 @@ import { paths, uiProps } from "../config";
 
 import SearchStackNavigator from "./SearchStack";
 import ListingStack from "./ListingStack";
-import AccountScreen from "../screens/Account";
-import Profile from "../screens/Profile";
+import { ProfileScreen } from "../screens/Profile";
+import AccountEdit from "../screens/AccountEdit";
 import { Screen } from "../components";
 
 import { Text,View } from 'react-native';
@@ -61,22 +61,19 @@ function RootNavigation() {
         <Tab.Screen name={paths.HOME} component={TopStack} />
         <Tab.Screen name={paths.SEARCH} component={SearchStackNavigator} />
         <Tab.Screen name={paths.LISTING} component={ListingStack} />
-        <Tab.Screen name={paths.ACCOUNT} component={AccountScreen}
+        <Tab.Screen name={paths.ACCOUNT} component={ProfileScreen}
         options={{
           //
-          headerShown: true,
-          headerTitle: () => (
-            <View style={{flexDirection:'row',justifyContent:'center',alignItems:'center'}}>
-              <Text style={{color:uiProps.colors.white,fontSize:18,fontWeight:uiProps.fontWeights.bold}}>More</Text>
-            </View>
-          ),
+          headerShown: false
         }}
         
         />
         <Tab.Screen name={paths.VIDEO_PLAYER} component={Player} 
         options={{ tabBarVisible: false, tabBarButton: () => null }}
         />
-        
+        <Tab.Screen name={paths.ACCOUNT_EDIT} component={AccountEdit} 
+        options={{ tabBarVisible: false, tabBarButton: () => null }}
+        />
       </Tab.Navigator>
       </Screen>
     );

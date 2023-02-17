@@ -21,7 +21,7 @@ function Stage({ navigation }) {
   return (
     <Screen>
       <View style={styles.container}>
-        <AppLogo logo={paths.LOGO_PATH} styles={styles.logoContainer} />
+        <AppLogo logo={paths.LOGO_PATH} style={styles.logoContainer} />
         <View style={styles.content}>
           <View style={styles.vectorImg}>
             <Image source={paths.VECTOR_PATH} style={styles.vector} />
@@ -57,8 +57,10 @@ const styles = StyleSheet.create({
   logoContainer: {
     position: "absolute",
     top: 30,
+ 
   },
   content: {
+    marginTop:20,
     flex: 1,
     justifyContent: "center",
     alignItems: "center",

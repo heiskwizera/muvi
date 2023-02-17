@@ -3,7 +3,7 @@ import AuthContext from "./context";
 import authStorage from "./storage";
 
 export default useAuth = () => {
-  const { user, setUser, setUserId } = useContext(AuthContext);
+  const { user,userId, setUser, setUserId } = useContext(AuthContext);
    
   const signUp = userData => {
     const user = userData.data.data || userData.data;
@@ -31,10 +31,16 @@ export default useAuth = () => {
     authStorage.removeUserInfo();
   };
 
+  const updateUser = userData => {
+    const user = userData.data.data || userData.data;
+    setUser(user);
+  }
   return {
     user,
+    userId,
     signUp,
     logIn,
     logOut,
+    updateUser
   };
 };

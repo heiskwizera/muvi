@@ -25,13 +25,15 @@ function Login({ navigation}) {
   const [isLoadingProcess, setIsLoadingProcess] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
 
-  const handleLogin = async ({ email, password }) => {
+  const handleLogin = async (userCredentials) => {
+    console.log(userCredentials);
     setIsLoadingProcess(true);
-    const result = await authApi.login(email, password);
+    const result = await authApi.login(userCredentials);
     setIsLoadingProcess(false);
     if (!result.ok) {
       setLoginFailed(true);
-      setErrorMessage(result.data.message);
+      let error = result.data.message || result.data.error || "An unexpected error occurred.";
+      setErrorMessage(error);
       console.log('Error message : ', result.data.message)
       return;
     }
@@ -93,9 +95,6 @@ function Login({ navigation}) {
                   <AppText style={styles.subtext}>Forget Password ?</AppText>
                 </TouchableOpacity>
                 <AppButton title="Get Started" onPress={handleSubmit}
-                // disabled={isSubmitting}
-                
-                
                 />
 
                 {isLoadingProcess && (

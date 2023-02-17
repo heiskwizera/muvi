@@ -40,6 +40,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     bottom: height * 0.1,
+    marginBottom:90,
+    marginLeft:10,
     backgroundColor: "transparent",
   },
   btn: {

@@ -3,6 +3,7 @@ export default {
   STAGE: "Stage",
   LOGIN: "Login",
   SIGNUP: "Register",
+  ACCOUNT_EDIT: "AccountEdit",
 
   HOME: "Home",
   HOME_TAB: "HomeTab",
@@ -30,5 +31,6 @@ export default {
   VECTOR_PATH : require('../assets/vector.png'),
   LOADER_GIF : require('../assets/preloader_quad.gif'),
   PROFILE_PATH: require('../assets/profile.jpg'),
+  SEARCH_VECTOR_PATH: require('../assets/search_vector.png'),
 
 };

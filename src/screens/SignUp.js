@@ -1,5 +1,11 @@
-import React,{useState} from "react";
-import { StyleSheet, View, TouchableOpacity, ScrollView } from "react-native";
+import React, { useState } from "react";
+import {
+  StyleSheet,
+  View,
+  TouchableOpacity,
+  ScrollView,
+  ActivityIndicator,
+} from "react-native";
 import { Formik } from "formik";
 
 import { uiProps, paths } from "../config";
@@ -21,17 +27,28 @@ import useAuth from "../auth/useAuth";
 function SignUp({ navigation }) {
   const auth = useAuth();
   const [signUpFailed, SetError] = useState(false);
+  const [isLoadingProcess, setIsLoadingProcess] = useState(false);
   const [errorMessage, SetErrorMessage] = useState([]);
+  
 
-  const handleSubmit = async({username,email,password}) =>{
-     const result = await authApi.signUp(username,email,password);
-      if(!result.ok){
-        SetError(true);
-        return;
-      }
-      SetError(false);
-      auth.signUp(result);
-  }
+  const handleSubmit = async (userInfo) => {
+    console.log(userInfo)
+    setIsLoadingProcess(true);
+    const result = await authApi.signUp(userInfo);
+    setIsLoadingProcess(false);
+    if (!result.ok) {
+      SetError(true);
+      let error = result.data.message || "User Already Exists.";
+      console.log(result)
+      SetErrorMessage(error);
+      console.log("Error message : ", error);
+      return;
+    }
+    SetError(false);
+    auth.signUp(result);
+
+
+  };
 
   return (
     <Screen>
@@ -44,7 +61,6 @@ function SignUp({ navigation }) {
             features.
           </AppText>
 
-          {/* Error */}
           {signUpFailed && (
             <AppText style={{ color: uiProps.colors.danger }}>
               {errorMessage}
@@ -52,7 +68,7 @@ function SignUp({ navigation }) {
           )}
 
           <Formik
-            initialValues={{ email: "", password: "", username: "" }}
+            initialValues={{ email: "", password: "", name: "" }}
             validationSchema={validateRegister}
             onSubmit={handleSubmit}
           >
@@ -64,13 +80,13 @@ function SignUp({ navigation }) {
               touched,
             }) => (
               <>
-              <AppInputField
-                  label="Username"
+                <AppInputField
+                  label="Names"
                   icon="person-outline"
-                  onBlur={() => setFieldTouched("username")}
-                  isTouch={touched.username}
-                  onChangeText={handleChange("username")}
-                  errorMessage={errors.username}
+                  onBlur={() => setFieldTouched("name")}
+                  isTouch={touched.name}
+                  onChangeText={handleChange("name")}
+                  errorMessage={errors.name}
                 />
                 <AppInputField
                   label="Email Address"
@@ -89,7 +105,6 @@ function SignUp({ navigation }) {
                   onChangeText={handleChange("password")}
                   errorMessage={errors.password}
                 />
-                
 
                 <View style={styles.btnSection}>
                   <AppButton title="Sign Up" onPress={handleSubmit} />
@@ -141,6 +156,9 @@ function SignUp({ navigation }) {
                 <AppText style={styles.subtext}>Sign In</AppText>
               </TouchableOpacity>
             </View>
+            {isLoadingProcess && (
+              <ActivityIndicator size="small" color={uiProps.colors.accent} />
+            )}
           </View>
         </View>
       </ScrollView>

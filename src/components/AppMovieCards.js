@@ -6,28 +6,42 @@ import {
   View,
   Text,
   Image,
+  Pressable,
 } from "react-native";
-
+import { Feather } from "@expo/vector-icons";
 import { uiProps } from "../config";
 import AppText from "./AppText";
 import { TouchableOpacity } from "react-native";
 
 const { width, height } = Dimensions.get("window");
 
-const LgMovies = ({ title, year, rating, poster, ...props }) => {
+const LgMovies = ({  poster, title, date, age, onPress  }) => {
   return (
-    <TouchableOpacity {...props}>
-      <ImageBackground style={lgStyle.card} source={{ uri: poster }} >
-        <View style={lgStyle.overlay}>
-          <Text style={lgStyle.title}>{title}</Text>
-          <View style={lgStyle.description}>
-            <AppText style={lgStyle.hd}>HD</AppText>
-            <AppText style={lgStyle.year}>{year}</AppText>
-            <AppText style={lgStyle.rating}>{rating}</AppText>
-          </View>
-        </View>
-      </ImageBackground>
-    </TouchableOpacity>
+    <TouchableOpacity style={lgStyle.container} onPress={onPress} >
+<ImageBackground source={{ uri:poster }} style={lgStyle.background}>
+  <View style={lgStyle.bottomRight}>
+    <View style={lgStyle.movieDetails}>
+      <Text style={lgStyle.movieName}>{title}</Text>
+    </View>
+    <View style={lgStyle.movieInfo}>
+      <Text style={lgStyle.hdText}>HD</Text>
+      <Text style={lgStyle.movieYear}>{date}</Text>
+      <Text style={lgStyle.plus}>+{age} </Text>
+      <View style={lgStyle.watchTrailer}>
+        <Text style={lgStyle.text}>Watch Trailer</Text>
+      <Pressable
+        style={lgStyle.playerIcon}
+        onPress={{onPress}}
+      >
+        <Feather name="play" size={25} color="white" />
+      </Pressable>
+      </View>
+    </View>
+  </View>
+</ImageBackground>
+</TouchableOpacity>
+
+
   );
 };
 
@@ -51,7 +65,7 @@ const SmMovies = ({ title, poster, date, age, ...props }) => {
   );
 };
 
-const ResMovies = ({ poster, title, styles, date, vote, overview, ...props }) => {
+const ResMovies = ({ poster, title, styles, date, vote, overview, list=false,...props }) => {
   return (
     <View style={[resultStyle.searchResultContainer, styles]}>
       <TouchableOpacity
@@ -69,7 +83,7 @@ const ResMovies = ({ poster, title, styles, date, vote, overview, ...props }) =>
           <Text style={resultStyle.description}>
             {date} | {vote} | HD
           </Text>
-          <Text numberOfLines={4} style={resultStyle.description}>
+          <Text numberOfLines={3} style={resultStyle.description}>
             {overview}
           </Text>
 
@@ -77,9 +91,11 @@ const ResMovies = ({ poster, title, styles, date, vote, overview, ...props }) =>
             <TouchableOpacity style={resultStyle.watchContainer}>
               <Text style={resultStyle.watchBtn}>Watch</Text>
             </TouchableOpacity>
+            {list && (
             <TouchableOpacity style={resultStyle.saveContainer}>
               <Text style={resultStyle.saveBtn}>Save to Watch</Text>
             </TouchableOpacity>
+            )}
           </View>
         </View>
       </TouchableOpacity>
@@ -87,8 +103,29 @@ const ResMovies = ({ poster, title, styles, date, vote, overview, ...props }) =>
   );
 };
 
+const OtherMovies = ({ title, year, rating, poster, ...props }) => {
+  return (
+    <TouchableOpacity {...props}>
+      <ImageBackground style={others.card} source={{ uri: poster }} >
+        <View style={others.overlay}>
+          <Text style={others.title}>{title}</Text>
+          <View style={others.description}>
+            <AppText style={others.hd}>HD</AppText>
+            <AppText style={others.year}>{year}</AppText>
+            <AppText style={others.rating}>{rating}</AppText>
+          </View>
+        </View>
+      </ImageBackground>
+    </TouchableOpacity>
+  );
+};
+
 const lgStyle = StyleSheet.create({
-  card: {
+  container: {
+    flex: 1,
+    fontFamily:'Roboto',
+  },
+  background: {
     width: width * 0.90,
     height: height * 0.3,
     marginTop: 10,
@@ -97,42 +134,66 @@ const lgStyle = StyleSheet.create({
     borderRadius: uiProps.borderRadius.medium,
     overflow: "hidden",
   },
-  overlay: {
-    flex: 1,
+  bottomRight: {
+    position: "absolute",
+    bottom: 0,
+    right: 0,
     backgroundColor: "rgba(0,0,0,0.5)",
-    justifyContent: "flex-end",
-    padding: uiProps.borderRadius.ten,
+    padding: 10,
+    width: "100%",
   },
-  title: {
-    color: uiProps.colors.white,
-    fontSize: uiProps.fontSizes.large - 4,
-    fontWeight: uiProps.fontWeights.bold,
-  },
-  description: {
+  movieDetails: {
     flexDirection: "row",
     alignItems: "center",
-    marginTop: 2,
   },
-  hd: {
-    color: uiProps.colors.white,
-    backgroundColor: uiProps.colors.accent,
-    fontWeight: uiProps.fontWeights.bold,
+  movieName: {
+    color: "white",
+    fontWeight: "bold",
+    fontSize: 16,
+  },
+  movieInfo: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginTop: 10,
+  },
+  hdText: {
+    color: "#fff",
+    backgroundColor: "#f9bf02",
     padding: 5,
+    fontWeight: "bold",
+    fontSize: 16,
+    marginRight: 10,
     borderRadius: 5,
-    marginRight: 3,
   },
-  year: {
-    color: uiProps.colors.white,
-    fontSize: uiProps.fontSizes.medium,
-    fontWeight: uiProps.fontWeights.bold,
-    marginRight: 3,
+  movieYear: {
+    color: "white",
+    fontWeight: "bold",
+    fontSize: 16,
+    marginRight: 10,
   },
-  rating: {
-    color: uiProps.colors.white,
-    fontSize: uiProps.fontSizes.medium,
-    fontWeight: uiProps.fontWeights.bold,
-    marginRight: 1,
+  plus: {
+    color: "white",
+    fontWeight: "bold",
+    fontSize: 16,
   },
+  text:{
+    color: "white",
+    fontWeight: "bold",
+    fontSize: 16,
+  },
+  playerIcon: {
+    borderRadius: 10,
+    marginLeft: 4,
+
+  },
+  watchTrailer:{
+    padding: 5,
+    marginLeft: 45,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  }
+
 });
 
 const smStyles = StyleSheet.create({
@@ -140,9 +201,10 @@ const smStyles = StyleSheet.create({
     width: width / 2 - 20,
     height: height / 2 - 20,
     marginHorizontal: -3,
-    borderRadius: 10,
+    borderRadius: uiProps.borderRadius.medium,
     overflow: "hidden",
     padding: 10,
+    marginLeft: 5,
   },
   poster: {
     width: "100%",
@@ -248,4 +310,53 @@ const resultStyle = StyleSheet.create({
   },
 });
 
-export { LgMovies, SmMovies, ResMovies };
+
+const others = StyleSheet.create({
+  card: {
+    width: width * 0.90,
+    height: height * 0.3,
+    marginTop: 10,
+    marginLeft: 10,
+    marginRight: 0,
+    borderRadius: uiProps.borderRadius.medium,
+    overflow: "hidden",
+  },
+  overlay: {
+    flex: 1,
+    backgroundColor: "rgba(0,0,0,0.5)",
+    justifyContent: "flex-end",
+    padding: uiProps.borderRadius.ten,
+  },
+  title: {
+    color: uiProps.colors.white,
+    fontSize: uiProps.fontSizes.large - 4,
+    fontWeight: uiProps.fontWeights.bold,
+  },
+  description: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginTop: 2,
+  },
+  hd: {
+    color: uiProps.colors.white,
+    backgroundColor: uiProps.colors.accent,
+    fontWeight: uiProps.fontWeights.bold,
+    padding: 5,
+    borderRadius: 5,
+    marginRight: 3,
+  },
+  year: {
+    color: uiProps.colors.white,
+    fontSize: uiProps.fontSizes.medium,
+    fontWeight: uiProps.fontWeights.bold,
+    marginRight: 3,
+  },
+  rating: {
+    color: uiProps.colors.white,
+    fontSize: uiProps.fontSizes.medium,
+    fontWeight: uiProps.fontWeights.bold,
+    marginRight: 1,
+  },
+});
+
+export { LgMovies, SmMovies, ResMovies, OtherMovies};

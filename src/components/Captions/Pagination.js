@@ -34,7 +34,6 @@ const Paginater = ({ data, scrollX, index }) => {
             style={[
               styles.dot,
               { width: dotWidth, backgroundColor },
-              // idx === index && styles.dotActive,
             ]}
           />
         );
@@ -50,7 +49,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     width: "100%",
     alignItems: "center",
-    marginLeft: 20,
+    marginLeft: 10,
     justifyContent: "flex-start",
   },
   dot: {

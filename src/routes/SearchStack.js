@@ -2,7 +2,6 @@ import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { View } from "react-native";
 
-import { Screen } from "../components";
 import { paths, uiProps } from "../config";
 import { Player, Search } from "../screens";
 

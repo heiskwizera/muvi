@@ -5,7 +5,7 @@ const validateRegister = Yup.object().shape({
   password: Yup.string()
     .required("Password required")
     .min(4, "4 characters minimum"),
-  username: Yup.string().required("Username required"),
+  name: Yup.string().required("Name is required"),
   
 });
 

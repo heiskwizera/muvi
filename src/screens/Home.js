@@ -2,18 +2,18 @@ import React,{useState,useEffect} from "react";
 import { StyleSheet, ScrollView } from "react-native";
 
 import { paths, uiProps } from "../config";
-import { Screen, AppFooter, AppText, LgMovies, SmMovies } from "../components";
+import { AppFooter, AppText, LgMovies, SmMovies } from "../components";
+import isLandscape from "../utils/Validator/imageSize";
+import AppVideo from "../components";
 
 import theMovieDb from "../api/Movies";
 
 function Home(props) {
   const [movies, setMovies] = useState([]);
-  const [upcomingMovies, setUpcomingMovies] = useState([]);
-
   useEffect(() => {
     loadMovies();
-    loadUpcomingMovies();
-  }, []);
+    
+  }, [loadMovies]);
   
 
   const loadMovies = async () => {
@@ -21,10 +21,6 @@ function Home(props) {
     setMovies(response.data.results);
   };
 
-  const loadUpcomingMovies = async () => {
-    const response = await theMovieDb.getUpcomingMovies();
-    setUpcomingMovies(response.data.results);
-  };
 
 
   return (
@@ -33,12 +29,14 @@ function Home(props) {
         <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
 
           {movies.map((movie, index) => (
-            <LgMovies
+            movie.id >= 843794 && (
+              <LgMovies
               key={index.toString()+movie.id}
-              title={movie.title}
               poster={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
+              title={movie.title}
               date={movie.release_date}
-              age={movie.adult}
+              age={movie.vote_average}
+
               onPress={() => props.navigation.navigate(paths.VIDEO_PLAYER, {
                 videoId: movie.id,
                 poster: `https://image.tmdb.org/t/p/w500/${movie.poster_path}`,
@@ -48,6 +46,7 @@ function Home(props) {
                 rate : movie.vote_average,
               })}
             />
+            )
           ))}
         
         </ScrollView>

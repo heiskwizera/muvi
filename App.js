@@ -7,6 +7,10 @@ import AuthContext from "./src/auth/context";
 import authStorage from "./src/auth/storage";
 import useAsyncTask from "./src/utils/Hooks/useAsyncTask";
 
+import { LogBox } from 'react-native';
+LogBox.ignoreLogs(['Warning: ...']);
+LogBox.ignoreAllLogs();
+
 export default function App() {
   const [user, setUser] = useState();
   const [userId, setUserId] = useState();

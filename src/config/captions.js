@@ -2,7 +2,7 @@ export default [
     {
       id: 1,
       title: 'Enjoy your favorite movies everywhere',
-      description: "Browse through our collection and discover hundreds of movies and series that you'll love!", 
+      description: "Browse through our collection and discover billion  and series that you'll love!", 
     },
     {
         id: 2,
